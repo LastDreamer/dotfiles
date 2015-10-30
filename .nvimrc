@@ -4,6 +4,7 @@ set showcmd
 set nobackup
 set number
 set relativenumber
+set nowrap
 
 set hlsearch
 set incsearch
@@ -27,6 +28,7 @@ set list
 syntax on
 filetype on
 filetype indent on
+filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
@@ -44,6 +46,14 @@ Plug 'mattn/webapi-vim'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
+Plug 'mileszs/ack.vim'
+Plug 'roman/golden-ratio'
+Plug 'tpope/vim-fugitive'
+" organizer
+Plug 'hsitz/VimOrganizer'
+Plug 'itchyny/calendar.vim'
+Plug 'chrisbra/NrrwRgn'
+Plug 'vim-scripts/utl.vim'
 
 call plug#end()
 
@@ -64,17 +74,13 @@ nmap <C-L> :bn!<CR>
 nmap <C-H> :bp!<CR>
 nmap <C-A> :w<CR>:bd<CR>
 nmap <C-S> :w<CR>
-nmap tui :e! ~/.nvimrc<CR>
+nmap tui :e! $MYVIMRC<CR>
 
 " перемещение по окнам
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-noremap <A-h> <C-w>h
-noremap <A-j> <C-w>j
-noremap <A-k> <C-w>k
-noremap <A-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 " Ctrl+P
 set wildignore+=*/tmp/*,*/bower_components/*
@@ -84,4 +90,9 @@ set wildignore+=*/node_modules/*,*/dist/*,*.so,*.swp,*.zip
 set cc=80
 
 " x-clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
+
+" vim organizer
+au! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+au BufEnter *.org            call org#SetOrgFileType()
+let g:org_command_for_emacsclient = 'emacsclient'
