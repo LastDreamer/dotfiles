@@ -7,7 +7,7 @@ set relativenumber
 set cursorline
 set wrap
 set linebreak
-set textwidth=80
+"set textwidth=80
 set formatoptions=cq
 
 set hlsearch
@@ -50,7 +50,7 @@ Plug 'vim-scripts/AutoComplPop'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
-Plug 'roman/golden-ratio'
+" Plug 'roman/golden-ratio'
 Plug 'tpope/vim-fugitive'
 Plug 'marijnh/tern_for_vim'
 Plug 'Shougo/unite.vim'
@@ -58,6 +58,7 @@ Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'pangloss/vim-javascript'
 Plug 'Lokaltog/vim-distinguished'
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -69,20 +70,19 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:netrw_liststyle=3
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 "autocmd BufWritePre * :%s/\s\+$//e
-"let g:tern_show_argument_hints = 'on_move'
-set omnifunc=syntaxcomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-let g:tern_map_keys=1
-let g:tern_show_argument_hints="on_hold"
+set omnifunc=tern#Complete
+let g:tern_show_argument_hints = 'on_move'
 
 let mapleader = "'"
 
 map <Leader> <Plug>(easymotion-s)
 nmap <C-L> :bn!<CR>
 nmap <C-H> :bp!<CR>
-nmap <C-A> :w<CR>:bd<CR>
+" nmap <C-A> :w<CR>:bd<CR>
 nmap <C-S> :w<CR>
 nmap tui :e! $MYVIMRC<CR>
 
@@ -100,7 +100,7 @@ set wildignore+=*/tmp/*,*/bower_components/*
 set wildignore+=*/node_modules/*,*/dist/*,*.so,*.swp,*.zip
 
 " colorcolumn
-set cc=80
+"set cc=80
 
 " x-clipboard
 set clipboard+=unnamedplus
