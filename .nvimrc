@@ -10,6 +10,10 @@ set linebreak
 "set textwidth=80
 set formatoptions=cq
 
+if $TERM == "xterm-256color"
+    set t_Co=256
+endif
+
 set hlsearch
 set incsearch
 set showmatch
@@ -30,6 +34,7 @@ set smartindent
 set ai
 set cin
 set list
+set syntax=1
 syntax on
 filetype on
 filetype indent on
@@ -38,8 +43,13 @@ filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'kchmck/vim-coffee-script'
+Plug 'digitaltoad/vim-pug'
+Plug 'w0ng/vim-hybrid'
 Plug 'jnurmine/Zenburn'
 Plug 'easymotion/vim-easymotion'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'maksimr/vim-jsbeautify'
 Plug 'bling/vim-airline'
 Plug 'mattn/emmet-vim'
 Plug 'kien/ctrlp.vim'
@@ -51,24 +61,35 @@ Plug 'vim-scripts/AutoComplPop'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
+Plug 'noah/vim256-color'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tell-k/vim-autopep8'
 Plug 'tmhedberg/SimpylFold'
 " Plug 'roman/golden-ratio'
 Plug 'tpope/vim-fugitive'
 Plug 'marijnh/tern_for_vim'
+Plug 'mtth/scratch.vim'
 " Plug 'Shougo/unite.vim'
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'pangloss/vim-javascript'
 Plug 'Valloric/YouCompleteMe'
 Plug 'nvie/vim-flake8'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/syntastic'
+Plug 'Valloric/YouCompleteMe'
+Plug 'marijnh/tern_for_vim'
 
 call plug#end()
 
-colorscheme zenburn
-
 imap jk <Esc>
+
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
+
+let g:syntastic_check_on_open=1
 
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
@@ -100,6 +121,10 @@ nnoremap <A-l> <C-w>l
 nnoremap <A-q> <C-w>q
 nnoremap <A-v> <C-w>v
 nnoremap <A-s> <C-w>s
+nnoremap <A-w> :ScratchPreview<CR><C-w>k
+
+colorscheme hybrid
+set background=dark
 
 " Ctrl+P
 set wildignore+=*/tmp/*,*/bower_components/*
@@ -141,4 +166,6 @@ let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 
-
+" greplace
+set grepprg=ack
+let g:grep_cmd_opts = '--noheading'
