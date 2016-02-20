@@ -65,7 +65,7 @@ Plug 'noah/vim256-color'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tell-k/vim-autopep8'
 Plug 'tmhedberg/SimpylFold'
-" Plug 'roman/golden-ratio'
+Plug 'roman/golden-ratio'
 Plug 'tpope/vim-fugitive'
 Plug 'marijnh/tern_for_vim'
 Plug 'mtth/scratch.vim'
@@ -84,6 +84,9 @@ Plug 'marijnh/tern_for_vim'
 call plug#end()
 
 imap jk <Esc>
+
+let g:scratch_top=0
+let g:scratch_height=10
 
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
@@ -121,7 +124,7 @@ nnoremap <A-l> <C-w>l
 nnoremap <A-q> <C-w>q
 nnoremap <A-v> <C-w>v
 nnoremap <A-s> <C-w>s
-nnoremap <A-w> :ScratchPreview<CR><C-w>k
+nnoremap <A-w> :ScratchPreview<CR><C-w>j
 
 colorscheme hybrid
 set background=dark
@@ -147,8 +150,6 @@ set backupdir=~/.vim/swap/
 set directory=~/.vim/swap/
 
 nnoremap ; :
-
-set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
 " pep8
 let g:autopep8_disable_show_diff=1
