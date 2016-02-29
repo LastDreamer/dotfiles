@@ -1,3 +1,7 @@
+set nocompatible
+set t_Co=256
+set hidden
+set showtabline=0
 set scrolloff=3
 
 set showcmd
@@ -10,10 +14,6 @@ set linebreak
 "set textwidth=80
 set formatoptions=cq
 
-if $TERM == "xterm-256color"
-    set t_Co=256
-endif
-
 set hlsearch
 set incsearch
 set showmatch
@@ -24,7 +24,7 @@ set visualbell t_bv=
 set novisualbell
 
 set backspace=indent,eol,start
-set mouse=a
+set mouse=v
 
 set expandtab
 set shiftwidth=4
@@ -43,6 +43,7 @@ filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
 Plug 'w0ng/vim-hybrid'
@@ -52,7 +53,6 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'bling/vim-airline'
 Plug 'mattn/emmet-vim'
-Plug 'kien/ctrlp.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-fugitive'
@@ -65,7 +65,7 @@ Plug 'noah/vim256-color'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tell-k/vim-autopep8'
 Plug 'tmhedberg/SimpylFold'
-Plug 'roman/golden-ratio'
+" Plug 'roman/golden-ratio'
 Plug 'tpope/vim-fugitive'
 Plug 'marijnh/tern_for_vim'
 Plug 'mtth/scratch.vim'
@@ -80,6 +80,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe'
 Plug 'marijnh/tern_for_vim'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -95,9 +96,11 @@ set completeopt-=preview
 let g:syntastic_check_on_open=1
 
 set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:netrw_liststyle=3
+"let g:netrw_liststyle=3
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
@@ -108,22 +111,16 @@ let g:SimpylFold_docstring_preview = 1
 
 let mapleader = "'"
 
-map <Leader> <Plug>(easymotion-s)
-nmap <C-L> :bn!<CR>
-nmap <C-H> :bp!<CR>
-nmap <C-w> :w<CR>:bd<CR>
-imap <C-S> jk:w<CR>
-inoremap <C-w> <C-s>:bd<CR>
-nmap tui :e! $MYVIMRC<CR>
+"ctrlspace
+nnoremap <silent><C-p> :CtrlSpace O<CR>
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
+let g:CtrlSpaceSearchTiming = 0
 
-" перемещение по окнам
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-nnoremap <A-q> <C-w>q
-nnoremap <A-v> <C-w>v
-nnoremap <A-s> <C-w>s
+map <Leader> <Plug>(easymotion-s)
+nmap tui :e! $MYVIMRC<CR>
+map <c-f> :call JsBeautify()<cr>
 nnoremap <A-w> :ScratchPreview<CR><C-w>j
 
 colorscheme hybrid
@@ -170,3 +167,24 @@ let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 " greplace
 set grepprg=ack
 let g:grep_cmd_opts = '--noheading'
+
+" Toggle Vexplore with Ctrl-E
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+nnoremap <silent> <A-e> :call ToggleVExplorer()<CR>
