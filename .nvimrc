@@ -43,6 +43,9 @@ filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'wavded/vim-stylus'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'irrationalistic/vim-tasks'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
@@ -67,7 +70,7 @@ Plug 'tell-k/vim-autopep8'
 Plug 'tmhedberg/SimpylFold'
 " Plug 'roman/golden-ratio'
 Plug 'tpope/vim-fugitive'
-Plug 'marijnh/tern_for_vim'
+"Plug 'marijnh/tern_for_vim'
 Plug 'mtth/scratch.vim'
 " Plug 'Shougo/unite.vim'
 Plug 'elzr/vim-json'
@@ -79,7 +82,7 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe'
-Plug 'marijnh/tern_for_vim'
+"Plug 'marijnh/tern_for_vim'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
@@ -188,3 +191,6 @@ function! ToggleVExplorer()
   endif
 endfunction
 nnoremap <silent> <A-e> :call ToggleVExplorer()<CR>
+
+
+let g:syntastic_javascript_checkers = ['eslint']
