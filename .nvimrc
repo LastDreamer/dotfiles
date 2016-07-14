@@ -9,7 +9,7 @@ set nobackup
 set number
 set relativenumber
 set cursorline
-set wrap
+set nowrap
 set linebreak
 "set textwidth=80
 set formatoptions=cq
