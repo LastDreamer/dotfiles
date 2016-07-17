@@ -27,10 +27,14 @@ set backspace=indent,eol,start
 set mouse=v
 
 set expandtab
+set textwidth=120
 set shiftwidth=4
+set tabstop=4
 set softtabstop=4
 set smarttab
 set smartindent
+"set autoindent
+set backspace=indent,eol,start
 set ai
 set cin
 set list
@@ -43,6 +47,8 @@ filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'irrationalistic/vim-tasks'
+Plug 'wikitopian/hardmode'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
@@ -118,7 +124,6 @@ let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
 let g:CtrlSpaceSaveWorkspaceOnExit = 1
 let g:CtrlSpaceSearchTiming = 0
 
-map <Leader> <Plug>(easymotion-s)
 nmap tui :e! $MYVIMRC<CR>
 map <c-f> :call JsBeautify()<cr>
 nnoremap <A-w> :ScratchPreview<CR><C-w>j
@@ -128,7 +133,7 @@ set background=dark
 
 " Ctrl+P
 set wildignore+=*/tmp/*,*/bower_components/*
-set wildignore+=*/node_modules/*,*/dist/*,*.so,*.swp,*.zip
+set wildignore+=*/node_modules/*,*/dist/*,*.so,*.swp,*.zip,*/public/*
 
 " colorcolumn
 "set cc=80
