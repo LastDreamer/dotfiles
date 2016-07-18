@@ -33,7 +33,7 @@ set tabstop=4
 set softtabstop=4
 set smarttab
 set smartindent
-"set autoindent
+" set autoindent
 set backspace=indent,eol,start
 set ai
 set cin
