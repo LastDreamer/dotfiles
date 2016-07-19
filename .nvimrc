@@ -47,6 +47,7 @@ filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'Shougo/neocomplete.vim'
 Plug 'wavded/vim-stylus'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'irrationalistic/vim-tasks'
@@ -80,12 +81,11 @@ Plug 'mtth/scratch.vim'
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'pangloss/vim-javascript'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'nvie/vim-flake8'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/syntastic'
-Plug 'Valloric/YouCompleteMe'
 "Plug 'marijnh/tern_for_vim'
 Plug 'ryanoasis/vim-devicons'
 
