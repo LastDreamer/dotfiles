@@ -26,10 +26,12 @@ values."
      auto-completion
      emacs-lisp
      javascript
+     colors
      django
      dash
      html
      git
+     github
      python
      markdown
      shell
@@ -109,7 +111,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
+   dotspacemacs-themes '(sanityinc-tomorrow-night
+                         zenburn
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
@@ -290,7 +293,7 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(hl-sexp-background-color "#efebe9")
- '(linum-relative-format "%3s  ")
+ '(linum-relative-format "%3s|  ")
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
