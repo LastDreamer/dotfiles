@@ -86,5 +86,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias mux="tmuxinator"
 alias editor="emacs -nw"
+alias e="emacs -nw"
 
 export EDITOR="emacs -nw"

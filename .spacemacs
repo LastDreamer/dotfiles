@@ -1,4 +1,5 @@
 ;; -*- mode: emacs-lisp -*-
+;; Do not write anything past this comment. This is where Emacs will
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -18,10 +19,11 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     yaml
      ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
+     ;; example of useful layers you may want to use right away.
+     ;; uncomment some layer names and press <spc f e r> (vim style) or
+     ;; <m-m f e r> (emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
      emacs-lisp
@@ -39,7 +41,6 @@ values."
      tmux
      org
      ranger
-     vim-powerline
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -53,9 +54,8 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     darkburn-theme
-     ample-theme
-     color-theme-sanityinc-tomorrow
+     sos
+     xclip
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -111,14 +111,12 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-night
+   dotspacemacs-themes '(flatland
+                         badger
+                         sanityinc-tomorrow-night
                          zenburn
                          spacemacs-dark
-                         spacemacs-light
-                         solarized-light
-                         solarized-dark
-                         leuven
-                         monokai)
+                         spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -127,7 +125,7 @@ values."
                                :size 12
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -262,9 +260,36 @@ before packages are loaded. If you are unsure, you should try in setting them in
               (setq python-shell-interpreter "python")
               (setq anaconda-mode-server-script
                     "/home/dreamer/.local/lib/python2.7/site-packages/anaconda_mode.py")))
-  (setq ispell-dictionary "english")
-  )
+  (defun copy-to-clipboard ()
+    "Copies selection to x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (message "Yanked region to x-clipboard!")
+          (call-interactively 'clipboard-kill-ring-save)
+          )
+      (if (region-active-p)
+          (progn
+            (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+            (message "Yanked region to clipboard!")
+            (deactivate-mark))
+        (message "No region active; can't yank to clipboard!")))
+    )
 
+  (defun paste-from-clipboard ()
+    "Pastes from x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (clipboard-yank)
+          (message "graphics active")
+          )
+      (insert (shell-command-to-string "xsel -o -b"))
+      )
+    )
+  (evil-leader/set-key "o y" 'copy-to-clipboard)
+  (evil-leader/set-key "o p" 'paste-from-clipboard)
+  (setq ispell-dictionary "english"))
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -282,9 +307,13 @@ you should place your code here."
   ;; (javascript :variables javascript-disable-tern-port-files nil)
   (setq-default js2-basic-offset 4)
   (setq-default js-indent-level 4)
+  ;; (setq-default helm-dash-browser-func 'w3-open-local)
   (setq-default dotspacemacs-configuration-layers
                 '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
-)
+  (setq-default google-translate-default-target-language "ru")
+  (setq x-select-enable-clipboard t)
+  (setq interprogram-cut-function 'x-select-text)
+  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -294,14 +323,14 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(hl-sexp-background-color "#efebe9")
  '(linum-relative-format "%3s|  ")
- '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ ;; '(nrepl-message-colors
+ ;;   (quote
+ ;;    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(vc-follow-symlinks 2))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+;; (custom-set-faces
+;; custom-set-faces was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+;; '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+;; '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
