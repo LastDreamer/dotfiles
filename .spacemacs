@@ -25,16 +25,20 @@ values."
      ;; uncomment some layer names and press <spc f e r> (vim style) or
      ;; <m-m f e r> (emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables auto-completion-enable-snippets-in-popup t auto-completion-complete-with-key-sequence-delay 0.8 auto-completion-enable-help-tooltip t auto-completion-private-snippets-directory "~/yasnippet")
      emacs-lisp
      javascript
      colors
      django
+     go
+     python
      dash
      html
      git
+     sql
      github
-     python
+     (version-control :variables version-control-diff-tool 'diff-hl version-control-global-margin t)
+     floobits
      markdown
      shell
      ibuffer
@@ -44,8 +48,8 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     spell-checking
-     syntax-checking
+     (spell-checking :variables spell-checking-enable-auto-dictionary t spell-checking-enable-by-default nil)
+     (syntax-checking :variables syntax-checking-enable-tooltips nil syntax-checking-enable-by-default nil)
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -56,6 +60,8 @@ values."
    '(
      sos
      xclip
+     ember-yasnippets
+     ember-mode
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -111,7 +117,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(flatland
+   dotspacemacs-themes '(gotham
                          badger
                          sanityinc-tomorrow-night
                          zenburn
@@ -121,7 +127,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Ubuntu Mono Regular"
+   dotspacemacs-default-font '("Ubuntu Mono derivative Powerline"
                                :size 12
                                :weight normal
                                :width normal
@@ -255,6 +261,11 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'gofmt-before-save)
+              (setq tab-width 4)
+              (setq indent-tabs-mode 1)))
   (add-hook 'python-mode-hook
             (lambda ()
               (setq python-shell-interpreter "python")
@@ -289,6 +300,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
+  (setq python-fill-column 120)
   (setq ispell-dictionary "english"))
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -299,20 +311,25 @@ explicitly specifien that a variable should be set before a package is loaded,
 you should place your code here."
   (global-evil-mc-mode)
   (global-linum-mode)
+  (global-git-gutter-mode)
   (linum-relative-mode)
   ;; (golden-ratio-mode)
   (setq-default evil-escape-key-sequence "jk")
   (setq flyspell-issue-welcome-flag nil)
   (setenv "ESHELL" (expand-file-name "/usr/bin/zsh"))
   ;; (javascript :variables javascript-disable-tern-port-files nil)
-  (setq-default js2-basic-offset 4)
-  (setq-default js-indent-level 4)
+  (setq-default js2-basic-offset 2)
+  (setq-default js-indent-level 2)
   ;; (setq-default helm-dash-browser-func 'w3-open-local)
   (setq-default dotspacemacs-configuration-layers
                 '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
   (setq-default google-translate-default-target-language "ru")
   (setq x-select-enable-clipboard t)
   (setq interprogram-cut-function 'x-select-text)
+  ;; don't create backup~ files
+  (setq backup-by-copying t
+        make-backup-files nil
+        create-lockfiles nil)
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -321,11 +338,19 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hl-sexp-background-color "#efebe9")
+ '(google-translate-default-source-language "en")
+ '(google-translate-default-target-language "ru")
+ '(grep-find-ignored-directories
+   (quote
+    ("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "sdvor-env" "queue_scripts" "site-packages" "CACHE" "storage" "__pycache__")))
+ '(grep-find-ignored-files
+   (quote
+    (".#*" "*.o" "*~" "*.bin" "*.lbin" "*.so" "*.a" "*.ln" "*.blg" "*.bbl" "*.elc" "*.lof" "*.glo" "*.idx" "*.lot" "*.fmt" "*.tfm" "*.class" "*.fas" "*.lib" "*.mem" "*.x86f" "*.sparcf" "*.dfsl" "*.pfsl" "*.d64fsl" "*.p64fsl" "*.lx64fsl" "*.lx32fsl" "*.dx64fsl" "*.dx32fsl" "*.fx64fsl" "*.fx32fsl" "*.sx64fsl" "*.sx32fsl" "*.wx64fsl" "*.wx32fsl" "*.fasl" "*.ufsl" "*.fsl" "*.dxl" "*.lo" "*.la" "*.gmo" "*.mo" "*.toc" "*.aux" "*.cp" "*.fn" "*.ky" "*.pg" "*.tp" "*.vr" "*.cps" "*.fns" "*.kys" "*.pgs" "*.tps" "*.vrs" "*.pyc" "*.pyo" "*.log" "*.csv" "*.min.js")))
+ '(hl-sexp-background-color "#efebe9" t)
  '(linum-relative-format "%3s|  ")
- ;; '(nrepl-message-colors
- ;;   (quote
- ;;    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "queue_scripts" "sdvor-env" "CACHE" "__pycache__")))
  '(vc-follow-symlinks 2))
 ;; (custom-set-faces
 ;; custom-set-faces was added by Custom.
@@ -334,3 +359,10 @@ you should place your code here."
 ;; If there is more than one, they won't work right.
 ;; '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
 ;; '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))

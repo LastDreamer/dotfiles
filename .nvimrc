@@ -47,11 +47,11 @@ filetype plugin indent on
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'epeli/slimux'
 Plug 'Shougo/neocomplete.vim'
 Plug 'wavded/vim-stylus'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'irrationalistic/vim-tasks'
-Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
 Plug 'w0ng/vim-hybrid'
@@ -118,16 +118,11 @@ let g:SimpylFold_docstring_preview = 1
 
 let mapleader = "'"
 
-"ctrlspace
-nnoremap <silent><C-p> :CtrlSpace O<CR>
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-let g:CtrlSpaceSaveWorkspaceOnExit = 1
-let g:CtrlSpaceSearchTiming = 0
-
 nmap tui :e! $MYVIMRC<CR>
 map <c-f> :call JsBeautify()<cr>
 nnoremap <A-w> :ScratchPreview<CR><C-w>j
+
+nnoremap <C-C> :SlimuxREPLSendLine<CR>
 
 colorscheme hybrid
 set background=dark

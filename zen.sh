@@ -54,17 +54,17 @@ do
 
                           echo -e "Confirmation received -- applying settings\n"
 
-                          profile_path=$gconfdir/${profiles[$profile_key]}
+                          profile_path=$gconfdir/${profiles[$profile_key]:0:-1}
                           # set palette
-                          gconftool-2 -s -t string $profile_path/palette "#3F3F3F3F3F3F:#CCCC93939393:#7F7F9F9F7F7F:#E3E3CECEABAB:#DFDFAFAF8F8F:#CCCC93939393:#8C8CD0D0D3D3:#DCDCDCDCCCCC:#3F3F3F3F3F3F:#CCCC93939393:#7F7F9F9F7F7F:#E3E3CECEABAB:#DFDFAFAF8F8F:#CCCC93939393:#8C8CD0D0D3D3:#DCDCDCDCCCCC"
+                          gconftool-2 -s -t string ${profile_path}palette "#3F3F3F3F3F3F:#CCCC93939393:#7F7F9F9F7F7F:#E3E3CECEABAB:#DFDFAFAF8F8F:#CCCC93939393:#8C8CD0D0D3D3:#DCDCDCDCCCCC:#3F3F3F3F3F3F:#CCCC93939393:#7F7F9F9F7F7F:#E3E3CECEABAB:#DFDFAFAF8F8F:#CCCC93939393:#8C8CD0D0D3D3:#DCDCDCDCCCCC"
 
                           # set highlighted color to be different from foreground-color
-                          gconftool-2 -s -t bool $profile_path/bold_color_same_as_fg false
+                          gconftool-2 -s -t bool ${profile_path}bold_color_same_as_fg false
 
                           # set foreground, background and highlight color
-                          gconftool-2 -s -t string $profile_path/background_color "#3F3F3F3F3F3F"
-                          gconftool-2 -s -t string $profile_path/foreground_color "#DCDCDCDCCCCC"
-                          gconftool-2 -s -t string $profile_path/bold_color       "#E3E3CECEABAB"
+                          gconftool-2 -s -t string ${profile_path}background_color "#3F3F3F3F3F3F"
+                          gconftool-2 -s -t string ${profile_path}foreground_color "#DCDCDCDCCCCC"
+                          gconftool-2 -s -t string ${profile_path}bold_color       "#E3E3CECEABAB"
 
                           # make sure the profile is set to not use theme colors
-                          gconftool-2 -s -t bool $profile_path/use_theme_colors false
+                          gconftool-2 -s -t bool ${profile_path}use_theme_colors false
