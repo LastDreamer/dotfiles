@@ -1,6 +1,6 @@
 # Path to your oh-my-zsh installation.
-  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-  export ZSH=/home/dreamer/.oh-my-zsh
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+  export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
