@@ -88,7 +88,7 @@ alias mux="tmuxinator"
 alias editor="emacs -nw"
 alias e="emacs -nw"
 
-export EDITOR="vi"
+export EDITOR="nano"
 export JAVA_HOME="/usr/lib/jvm/default-java/bin/"
 export GOPATH='/srv/projects/golang'
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/dreamer/go/bin:$GOPATH/bin"
@@ -99,3 +99,9 @@ alias ip="cd /srv/projects/integration/"
 alias ep="cd /srv/projects/mobile-ember/"
 export TERM=xterm-256color
 alias tr="tree -I '__pycache__'"
+export ANDROID_HOME=/Development/android-sdk/
+export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools
+export JWT_SECRET='052lrWngfxVv'
+alias l="gls --color=auto --group-directories-first --hide='*pyc*' -l"
+
+eval $(thefuck --alias)
