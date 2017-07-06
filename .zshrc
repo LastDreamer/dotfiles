@@ -102,6 +102,7 @@ alias tr="tree -I '__pycache__'"
 export ANDROID_HOME=/Development/android-sdk/
 export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools
 export JWT_SECRET='052lrWngfxVv'
+export PIP_EXTRA_INDEX_URL='https://pip.itlabs.io/'
 alias l="gls --color=auto --group-directories-first --hide='*pyc*' -l"
 
 eval $(thefuck --alias)
