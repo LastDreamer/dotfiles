@@ -50,7 +50,7 @@ ZSH_THEME="eastwood"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow vi-mode virtualenvwrapper ember pip python emacs)
+plugins=(git vi-mode emacs)
 
 # User configuration
 
@@ -84,25 +84,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias mux="tmuxinator"
 alias editor="emacs -nw"
 alias e="emacs -nw"
 
-export EDITOR="nano"
-export JAVA_HOME="/usr/lib/jvm/default-java/bin/"
-export GOPATH='/srv/projects/golang'
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/dreamer/go/bin:$GOPATH/bin"
-source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-alias dp="cd /srv/projects/amethistinus/sdvor/"
-alias rp="cd /srv/projects/golang/src/gl.sdvor.com/catalog/rest-api/"
-alias ip="cd /srv/projects/integration/"
-alias ep="cd /srv/projects/mobile-ember/"
 export TERM=xterm-256color
-alias tr="tree -I '__pycache__'"
-export ANDROID_HOME=/Development/android-sdk/
-export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools
-export JWT_SECRET='052lrWngfxVv'
-export PIP_EXTRA_INDEX_URL='https://pip.itlabs.io/'
-alias l="gls --color=auto --group-directories-first --hide='*pyc*' -l"
-
 eval $(thefuck --alias)
