@@ -85,7 +85,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias editor="emacs -nw"
-alias e="emacs -nw"
+alias e="emacsclient -t"
 
 export TERM=xterm-256color
 eval $(thefuck --alias)
+export PATH="/usr/local/opt/node@10/bin:$PATH"
